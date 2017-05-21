@@ -1,0 +1,17 @@
+<resources>
+
+    <!-- Base application theme. -->
+	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+		<item name="android:windowActionBar">true</item>
+		<item name="android:windowNoTitle">false</item>
+		<item name="android:colorPrimary">#7409AA</item>
+		<item name="android:colorPrimaryDark">#590683</item>
+		<item name="android:colorAccent">#DA559E</item>
+	</style>
+	
+	<style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+		<item name="tabIndicatorColor">#DA559E</item>
+	</style>
+    
+
+</resources>

@@ -6,19 +6,19 @@ android {
     defaultConfig {
         applicationId "edu.monash.fit3027.eventappfinal"
         minSdkVersion 23
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+targetSdkVersion 25
+versionCode 1
+versionName "1.0"
+testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+}
+buildTypes {
+    release {
+        minifyEnabled false
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    productFlavors {
-    }
+}
+productFlavors {
+}
 }
 
 dependencies {

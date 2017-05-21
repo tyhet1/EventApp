@@ -1,100 +1,75 @@
 package edu.monash.fit3027.eventappfinal;
 
+import android.icu.text.SimpleDateFormat;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.widget.TableLayout;
-import android.widget.TextView;
-import android.support.design.widget.TabLayout;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.text.SimpleDateFormat;
+import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-    //TAB VARIABLES
-
-    private TextView m_startDate_textView;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-/*
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 
-        if (toolbar != null){
-            setSupportActionBar(toolbar);
-        }
 
-        viewPager.setAdapter(new SectionPagerAdapter(getSupportFragmentManager()));
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
-
-
-
-        //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        //getSupportActionBar().setCustomView(R.layout.actionbar_layout);
-*/
-
-        String dateTime = "2017-06-08 19:00:00";
-
-
-
-
-        m_startDate_textView = (TextView) findViewById(R.id.startDate_Textview);
-        //SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        // m_startDate_textView.setText(format.format(myDate));  HOW TO SET A DATE FORMATE
     }
 
-    public class SectionPagerAdapter extends FragmentPagerAdapter{
+    private void setupViewPager(ViewPager viewPager){
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new TabFragment1(), "ONE");
+        adapter.addFragment(new TabFragment2(), "TWO");
+        adapter.addFragment(new TabFragment3(), "THREE");
+        viewPager.setAdapter(adapter);
+    }
 
-        public SectionPagerAdapter(FragmentManager fm){
-            super(fm);
+    class ViewPagerAdapter extends FragmentPagerAdapter{
+        private final List<Fragment> m_fragmentList = new ArrayList<>();
+        private final List<String> m_fragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager){
+            super(manager);
         }
 
         @Override
-        public Fragment getItem(int position) {
-            switch (position){
-                case 0:
-                    return new TabFragment1();
-
-                case 1:
-                    return new TabFragment2();
-                case 2:
-                    return new TabFragment3();
-
-                default:
-                    return null;
-            }
+        public Fragment getItem(int position){
+            return m_fragmentList.get(position);
         }
 
         @Override
-        public int getCount() {
-            return 3;
+        public int getCount(){
+            return m_fragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title){
+            m_fragmentList.add(fragment);
+            m_fragmentTitleList.add(title);
         }
 
         @Override
         public CharSequence getPageTitle(int position){
-            switch (position){
-                case 0: return "First Tab";
-
-                case 1: return "Second Tab";
-
-                case 2: return "Third Tab";
-                default:
-                    return null;
-            }
+            return m_fragmentTitleList.get(position);
         }
     }
 }
