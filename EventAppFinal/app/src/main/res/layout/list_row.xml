@@ -17,7 +17,7 @@
             android:padding="10dp">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/event_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="151dp"
                 android:layout_alignParentEnd="true"
@@ -27,58 +27,58 @@
                 android:layout_weight="0.7" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/event_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/imageView"
+                android:layout_below="@+id/event_imageView"
                 android:text="Event"
                 android:textAppearance="@android:style/TextAppearance.Medium" />
 
             <TextView
-                android:id="@+id/textView23"
+                android:id="@+id/time_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView24"
-                android:layout_alignBottom="@+id/textView24"
+                android:layout_alignBaseline="@+id/date_textView"
+                android:layout_alignBottom="@+id/date_textView"
                 android:layout_marginStart="18dp"
-                android:layout_toEndOf="@+id/textView24"
+                android:layout_toEndOf="@+id/date_textView"
                 android:text="Time" />
 
             <TextView
-                android:id="@+id/textView28"
+                android:id="@+id/price_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/imageView"
+                android:layout_alignBottom="@+id/event_imageView"
                 android:layout_alignParentEnd="true"
                 android:text="Price" />
 
             <TextView
-                android:id="@+id/textView24"
+                android:id="@+id/date_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView25"
-                android:layout_alignBottom="@+id/textView25"
+                android:layout_alignBaseline="@+id/location_textView"
+                android:layout_alignBottom="@+id/location_textView"
                 android:layout_marginStart="24dp"
-                android:layout_toEndOf="@+id/textView25"
+                android:layout_toEndOf="@+id/location_textView"
                 android:text="Date" />
 
             <TextView
-                android:id="@+id/textView25"
+                android:id="@+id/location_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/textView14"
+                android:layout_below="@+id/event_textView"
                 android:text="Location" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/favourite_imageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 app:srcCompat="@android:drawable/btn_star_big_off"
-                android:layout_alignEnd="@+id/textView25" />
+                android:layout_alignEnd="@+id/location_textView" />
 
 
         </RelativeLayout>

@@ -20,7 +20,8 @@ public class Event implements Parcelable {
     //DATABASE CONSTANTS//
     public static final String TABLE_NAME = "events";
     public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_DESCRIPTION = "name";
+    public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_STARTDATE = "startDate";
     public static final String COLUMN_ENDDATE = "endDate";
     public static final String COLUMN_STARTTIME = "startTime";
@@ -33,6 +34,7 @@ public class Event implements Parcelable {
     public static final String CREATE_STATEMENT = "CREATE TABLE "
             + TABLE_NAME + "(" +
             COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+            COLUMN_NAME + " TEXT NOT NULL," +
             COLUMN_DESCRIPTION + " TEXT NOT NULL," +
             COLUMN_STARTDATE + " TEXT NOT NULL," +
             COLUMN_ENDDATE + " TEXT NOT NULL," +
@@ -54,11 +56,16 @@ public class Event implements Parcelable {
     private String m_sType;
     private String m_sLocation;
 
-
     // DUMMY EVENT //
     public Event(){
         m_sName = "Night Market";
         m_sDescription = "All the food";
+        m_dStartDate = "06/06/2017";
+        m_dEndDate = "16/07/2017";
+        m_dStartTime = "18:00";
+        m_dEndTime = "22:00";
+        m_nPrice = "15-50";
+        m_sLocation = "Melbourne CBD";
     }
 
     protected Event(Parcel in){

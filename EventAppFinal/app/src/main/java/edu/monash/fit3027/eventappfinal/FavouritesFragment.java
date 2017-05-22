@@ -10,9 +10,9 @@ import android.view.ViewGroup;
  * Created by Thamale on 12/05/2017.
  */
 
-public class TabFragment2 extends Fragment{
+public class FavouritesFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        return inflater.inflate(R.layout.tab_fragment_2, container, false);
+        return inflater.inflate(R.layout.favourites_fragment, container, false);
     }
 }

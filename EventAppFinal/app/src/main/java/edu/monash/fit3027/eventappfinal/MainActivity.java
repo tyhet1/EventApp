@@ -1,6 +1,5 @@
 package edu.monash.fit3027.eventappfinal;
 
-import android.icu.text.SimpleDateFormat;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,9 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new TabFragment1(), "ONE");
-        adapter.addFragment(new TabFragment2(), "TWO");
-        adapter.addFragment(new TabFragment3(), "THREE");
+        adapter.addFragment(new HomeFragment(), "Home");
+        adapter.addFragment(new FavouritesFragment(), "Favourites");
+        adapter.addFragment(new SearchFragment(), "Search");
         viewPager.setAdapter(adapter);
     }
 
