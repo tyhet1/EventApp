@@ -23,12 +23,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+
         tabLayout.setupWithViewPager(viewPager);
     }
 

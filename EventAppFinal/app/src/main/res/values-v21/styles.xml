@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+	<style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
 		<item name="android:windowActionBar">true</item>
 		<item name="android:windowNoTitle">false</item>
 		<item name="android:colorPrimary">#7409AA</item>

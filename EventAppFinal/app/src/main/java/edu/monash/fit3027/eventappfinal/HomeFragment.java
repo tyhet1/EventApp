@@ -2,25 +2,16 @@ package edu.monash.fit3027.eventappfinal;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import android.os.AsyncTask;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Thamale on 12/05/2017.
@@ -94,7 +85,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_row, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_card, parent, false);
             ViewHolder holder = new ViewHolder(view);
             return holder;
         }

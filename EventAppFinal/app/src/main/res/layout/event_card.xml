@@ -12,7 +12,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="206dp"
+            android:layout_height="218dp"
             android:padding="10dp">
 
             <ImageView
@@ -74,10 +74,9 @@
                 android:id="@+id/favourite_imageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/location_textView"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                app:srcCompat="@android:drawable/btn_star_big_off" />
+                app:srcCompat="@android:drawable/btn_star_big_off"
+                android:layout_toStartOf="@+id/date_textView" />
 
 
         </RelativeLayout>
