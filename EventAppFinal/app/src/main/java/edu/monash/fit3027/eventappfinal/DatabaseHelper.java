@@ -19,6 +19,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(Event.CREATE_STATEMENT);
@@ -46,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public HashMap<Long, Event> GetAllEvents(){
+    public HashMap<Long, Event> getAllEvents(){
         HashMap<Long, Event> events = new LinkedHashMap<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + Event.TABLE_NAME, null);
@@ -69,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-        db.close();
+        //db.close();
         return events;
     }
 
