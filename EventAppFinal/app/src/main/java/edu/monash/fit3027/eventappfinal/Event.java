@@ -29,20 +29,25 @@ public class Event implements Parcelable {
     public static final String COLUMN_PRICE = "price";
     public static final String COLUMN_TYPE = "type";
     public static final String COLUMN_LOCATION = "location";
+    public static final String COLUMN_LAT = "lat";
+    public static final String COLUMN_LONG = "long";
 
     //TABLE CREATE STATEMENT
     public static final String CREATE_STATEMENT = "CREATE TABLE "
             + TABLE_NAME + "(" +
-            COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-            COLUMN_NAME + " TEXT NOT NULL," +
-            COLUMN_DESCRIPTION + " TEXT NOT NULL," +
-            COLUMN_STARTDATE + " TEXT NOT NULL," +
-            COLUMN_ENDDATE + " TEXT NOT NULL," +
-            COLUMN_STARTTIME + " TEXT NOT NULL," +
-            COLUMN_ENDTIME + " TEXT NOT NULL," +
-            COLUMN_PRICE + " INTEGER," +
-            COLUMN_TYPE + " TEXT NOT NULL," +
-            COLUMN_LOCATION + " TEXT NOT NULL" + ")";
+            COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+            COLUMN_NAME + " TEXT NOT NULL, " +
+            COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
+            COLUMN_STARTDATE + " TEXT NOT NULL, " +
+            COLUMN_ENDDATE + " TEXT NOT NULL, " +
+            COLUMN_STARTTIME + " TEXT NOT NULL, " +
+            COLUMN_ENDTIME + " TEXT NOT NULL, " +
+            COLUMN_PRICE + " TEXT NOT NULL, " +
+            COLUMN_TYPE + " TEXT NOT NULL, " +
+            COLUMN_LOCATION + " TEXT NOT NULL, " +
+            COLUMN_LAT + " TEXT NOT NULL, " +
+            COLUMN_LONG + " TEXT NOT NULL" +
+            ")";
 
     // VARIABLES //
     private long m_nID;
@@ -55,6 +60,9 @@ public class Event implements Parcelable {
     private String m_nPrice;
     private String m_sType;
     private String m_sLocation;
+    private String m_sLat;
+    private String m_sLong;
+
 
     // DUMMY EVENT //
     public Event(){
@@ -65,7 +73,11 @@ public class Event implements Parcelable {
         m_dStartTime = "18:00";
         m_dEndTime = "22:00";
         m_nPrice = "15-50";
+        m_sType = "Food";
         m_sLocation = "Melbourne CBD";
+        m_sLat = "-65.9898 ";
+        m_sLong = "-898.88 ";
+
     }
 
     protected Event(Parcel in){
@@ -79,6 +91,8 @@ public class Event implements Parcelable {
         m_nPrice = in.readString();
         m_sType = in.readString();
         m_sLocation = in.readString();
+        m_sLat = in.readString();
+        m_sLong = in.readString();
 
     }
 
@@ -111,12 +125,14 @@ public class Event implements Parcelable {
         dest.writeString(m_nPrice);
         dest.writeString(m_sType);
         dest.writeString(m_sLocation);
+        dest.writeString(m_sLat);
+        dest.writeString(m_sLong);
     }
 
 
 
    // CONSTRUCTORS //
-    public Event(long id, String name, String description, String startDate, String endDate, String startTime, String endTime, String price, String type, String location ){
+    public Event(long id, String name, String description, String startDate, String endDate, String startTime, String endTime, String price, String type, String location, String latitude, String longitude ){
         this.m_nID = id;
         this.m_sName = name;
         this.m_sDescription = description;
@@ -127,6 +143,8 @@ public class Event implements Parcelable {
         this.m_nPrice = price;
         this.m_sType = type;
         this.m_sLocation = location;
+        this.m_sLat = latitude;
+        this.m_sLong = longitude;
     }
 
     // ACCESSORS & MUTATORS //
@@ -224,4 +242,12 @@ public class Event implements Parcelable {
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
         return dateFormat.format(time);
     }
+
+
+    public String getLatitude(){return m_sLat; }
+    public void setLatitude(String lat) { this.m_sLat = lat ; }
+
+    public String getLongitude(){return m_sLong; }
+    public void setlongitude(String longitude) { this.m_sLong =  longitude; }
+
 }

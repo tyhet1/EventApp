@@ -28,7 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+ Event.CREATE_STATEMENT);
+        db.execSQL("DROP TABLE IF EXISTS "+ Event.TABLE_NAME);
         onCreate(db);
     }
 
@@ -44,6 +44,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Event.COLUMN_PRICE, event.getPrice());
         values.put(Event.COLUMN_TYPE, event.getType());
         values.put(Event.COLUMN_LOCATION, event.getLocation());
+        values.put(Event.COLUMN_LAT, event.getLatitude());
+        values.put(Event.COLUMN_LONG, event.getLongitude());
         db.insert(Event.TABLE_NAME, null, values);
         db.close();
     }
@@ -65,13 +67,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursor.getString(6),
                         cursor.getString(7),
                         cursor.getString(8),
-                        cursor.getString(9));
+                        cursor.getString(9),
+                        cursor.getString(10),
+                        cursor.getString(11));
                 events.put(event.getId(), event);
             }while(cursor.moveToNext());
         }
 
         cursor.close();
-        //db.close();
+        db.close();
         return events;
     }
 
@@ -82,7 +86,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void CreateDefaultEvents(){
-        AddEvent(new Event(0, "Night Market", "All the food", "06/06/2017", "16/07/2017", "18:00", "22:00", "15-50", "Food ","Melbourne CBD"));
+        AddEvent(new Event(0, "Night Market", "All the food", "06/06/2017", "16/07/2017", "18:00", "22:00", "15-50", "Food ","Melbourne CBD", "-56.34", "54.76"));
     }
 
 
