@@ -87,6 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void CreateDefaultEvents(){
         AddEvent(new Event(0, "Night Market", "All the food", "06/06/2017", "16/07/2017", "18:00", "22:00", "15-50", "Food ","Melbourne CBD", "-56.34", "54.76"));
+        AddEvent(new Event(1, "blah", "blah1desc", "blah2datestart", "blah3dateend", "blah4timestart", "blahtimeend", "blah-price", "blahType", "location", "lat", "lomg"));
     }
 
 
