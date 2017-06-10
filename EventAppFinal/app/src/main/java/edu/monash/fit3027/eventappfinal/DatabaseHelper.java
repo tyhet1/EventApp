@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -48,6 +49,73 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Event.COLUMN_LONG, event.getLongitude());
         db.insert(Event.TABLE_NAME, null, values);
         db.close();
+    }
+
+    public ArrayList<String> getColumnData(String colmun){
+        ArrayList<String> array = new ArrayList<String>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + Event.TABLE_NAME, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                String ID = cursor.getString(0);
+                String NAME = cursor.getString(1);
+                String DESCRIPTION = cursor.getString(2);
+                String STARTDATE = cursor.getString(3);
+                String ENDDATE = cursor.getString(4);
+                String STARTTIME = cursor.getString(5);
+                String ENDTIME = cursor.getString(6);
+                String PRICE = cursor.getString(7);
+                String TYPE = cursor.getString(8);
+                String LOCATION = cursor.getString(9);
+                String LAT = cursor.getString(10);
+                String LONG = cursor.getString(11);
+                if (colmun.equals("ID")){
+                    array.add(ID);
+                }
+                else if (colmun.equals("NAME")){
+                    array.add(NAME);
+                }
+                else if (colmun.equals("DESCRIPTION")){
+                    array.add(DESCRIPTION);
+                }
+                else if (colmun.equals("STARTDATE")){
+                    array.add(STARTDATE);
+                }
+                else if (colmun.equals("ENDDATE")){
+                    array.add(ENDDATE);
+                }
+                else if (colmun.equals("STARTTIME")){
+                    array.add(STARTTIME);
+                }
+                else if (colmun.equals("ENDTIME")){
+                    array.add(ENDTIME);
+                }
+                else if (colmun.equals("PRICE")){
+                    array.add(PRICE);
+                }
+                else if (colmun.equals("TYPE")){
+                    array.add(TYPE);
+                }
+                else if (colmun.equals("LOCATION")){
+                    array.add(LOCATION);
+                }
+                else if (colmun.equals("LAT")){
+                    array.add(LAT);
+                }
+                else if (colmun.equals("LONG")){
+                    array.add(LONG);
+                }
+                else{
+                    array.add("No result");
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return array;
+
     }
 
     public HashMap<Long, Event> getAllEvents(){

@@ -7,6 +7,7 @@ import android.support.v4.content.IntentCompat;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewDebug;
@@ -18,8 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpHost;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -37,6 +40,13 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+
 
 /**
  * Created by Thamale on 12/05/2017.
@@ -44,6 +54,7 @@ import java.util.StringTokenizer;
 //https://www.androidtutorialpoint.com/material-design/android-cardview-tutorial
 
 public class HomeFragment extends Fragment {
+    private String TAG = HomeFragment.class.getSimpleName();
 
     public HomeFragment(){
 
@@ -72,8 +83,9 @@ public class HomeFragment extends Fragment {
         m_cDBHelper = new DatabaseHelper(getActivity());
 
         if(m_cDBHelper.getAllEvents().size() == 0){
-            //m_cDBHelper.CreateDefaultEvents();
-            new SetupEventDataSetTask().execute(JSON_DOWNLOAD_LOCATION);
+            m_cDBHelper.CreateDefaultEvents();
+            //new SetupEventDataSetTask().execute(JSON_DOWNLOAD_LOCATION);
+
         }
         //populate the list with valuts from the database
         m_cEventList = new ArrayList<>(m_cDBHelper.getAllEvents().values());
@@ -94,46 +106,38 @@ public class HomeFragment extends Fragment {
 
 
 
-        //return view;
 
-        return homeView;
+        return view;
+
+        //return homeView;
 
 
     }
 
 
 
-    private class SetupEventDataSetTask extends AsyncTask<String, Void, String>{
-        @Override
-        protected String doInBackground(String... strings){
-            try{
-                URL downloadURL = new URL(strings[0]);
-                HttpURLConnection connection = (HttpURLConnection) downloadURL.openConnection();
-                InputStream input = connection.getInputStream();
 
-                String result = "";
-                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-                StringBuilder sb = new StringBuilder();
 
-                while ((result = reader.readLine()) != null){
-                    sb.append(result);
-                }
-                return sb.toString();
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-            return null;
-        }
+
+
+    private class SetupEventDataSetTask extends AsyncTask<String, Void, String> {
 
         @Override
-        protected  void onPostExecute(String result){
-            if (result != null){
+        protected String doInBackground(String... strings) {
+            HttpHandler sh = new HttpHandler();
+            // Make a request to url and getting response
+            String url = "http://eventfindingapp:wyr77q77gx9k@api.eventfinda.com.au/v2/events.json?fields=event:(url,name,sessions,location,location_summary,description,datetime_start,datetime_end,location:(id,url,name),session:(datetime_summary,session_tickets),session_ticket:(id,name,price))";
+            String jsonStr = sh.makeServiceCall(url);
+
+            Log.e(TAG, "Response from url: " + jsonStr);
+            if (jsonStr != null) {
                 try {
-                    JSONArray eventsContents = new JSONArray(result);
+                    JSONObject eventsContents = new JSONObject(jsonStr);
+                    JSONArray events = eventsContents.getJSONArray("events");
 
-                    for (int i=0; i < eventsContents.length(); i++){
-                        JSONObject tempJSON = eventsContents.getJSONObject(i);
+
+                    for (int i = 0; i < events.length(); i++) {
+                        JSONObject tempJSON = events.getJSONObject(i);
 
                         //get category name
                         JSONObject category = tempJSON.getJSONObject("category");
@@ -143,8 +147,7 @@ public class HomeFragment extends Fragment {
                         String price;
                         if (tempJSON.getInt("is_free") == 1) {
                             price = "0";
-                        }
-                        else{
+                        } else {
                             JSONArray session = tempJSON.getJSONArray("sessions");
                             JSONObject session_ticket = session.getJSONObject(0);
                             price = session_ticket.getString("price");
@@ -158,10 +161,10 @@ public class HomeFragment extends Fragment {
                         //Get the image url from JSON
                         JSONArray images = tempJSON.getJSONArray("images");
                         JSONArray transforms = images.getJSONArray(4);
-                        for ( int j = 0; j < transforms.length() ; j++){
-                            JSONObject transform = (JSONObject)transforms.get(j);
+                        for (int j = 0; j < transforms.length(); j++) {
+                            JSONObject transform = (JSONObject) transforms.get(j);
                             int transformationID = transform.getInt("transformation_id");
-                            if (transformationID == 8){
+                            if (transformationID == 8) {
                                 String imageURL = transform.getString("url");
                                 break;
                             }
@@ -169,19 +172,19 @@ public class HomeFragment extends Fragment {
 
                         //get datetime_start
                         String datetime_start = tempJSON.getString("datetime_start");
-                            //get the start date
+                        //get the start date
                         Date start_date = getDateFromString(datetime_start);
                         String string_start_date = getStringFromDate(start_date);
-                            //get the start time
+                        //get the start time
                         Date time_start = getTimeFromString(datetime_start);
                         String string_start_time = getStringFromTime(time_start);
 
                         //get datetime_end
                         String datetime_end = tempJSON.getString("datetime_end");
-                            //get the end date
+                        //get the end date
                         Date end_date = getDateFromString(datetime_end);
                         String string_end_date = getStringFromDate(end_date);
-                            //get end time
+                        //get end time
                         Date end_time = getTimeFromString(datetime_end);
                         String string_end_time = getStringFromTime(end_time);
 
@@ -205,70 +208,12 @@ public class HomeFragment extends Fragment {
 
                     //m_cEventList.addAll(m_cDBHelper.getAllEvents().values());
                     UpdateListCount();
-                }
-                catch(Exception e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
             }
-        }
-    }
-
-
-
-
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView eventNameTextView;
-        TextView locationTextView;
-        TextView dateTextView;
-        TextView timeTextView;
-        TextView priceTextView;
-        ImageView eventImageView;
-        //TextView databasenumTextView;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            eventNameTextView = (TextView) itemView.findViewById(R.id.event_textView);
-            locationTextView = (TextView)itemView.findViewById(R.id.location_textView);
-            dateTextView = (TextView) itemView.findViewById(R.id.date_textView);
-            timeTextView = (TextView) itemView.findViewById(R.id.time_textView);
-            priceTextView = (TextView) itemView.findViewById(R.id.price_textView);
-            eventImageView = (ImageView) itemView.findViewById(R.id.event_imageView);
-            //databasenumTextView = (TextView) itemView.findViewById(R.id.textView_num);
-
-        }
-    }
-
-    public class Adapter extends RecyclerView.Adapter<ViewHolder>{
-        private ArrayList<Event> m_cEventsList;
-
-        public Adapter(ArrayList<Event> Data){
-            m_cEventsList = Data;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_card, parent, false);
-            ViewHolder holder = new ViewHolder(view);
-            return holder;
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.eventNameTextView.setText(m_cEventsList.get(position).getName());
-            holder.locationTextView.setText(m_cEventsList.get(position).getLocation());
-            holder.dateTextView.setText(m_cEventsList.get(position).getStartDate());
-            holder.timeTextView.setText(m_cEventsList.get(position).getStartTime());
-            holder.priceTextView.setText(m_cEventsList.get(position).getPrice());
-            //holder.databasenumTextView.setText(m_cEventsList.size());
-
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return m_cEventList.size();
+            return null;
         }
     }
 
@@ -314,14 +259,33 @@ public class HomeFragment extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         return dateFormat.format(date);
     }
-
     private  void UpdateListCount(){
         int numEvents = m_cEventList.size();
     }
 
 
 
+            /*
+            try{
 
+                URL downloadURL = new URL(strings[0]);
+                HttpURLConnection connection = (HttpURLConnection) downloadURL.openConnection();
 
-}
+                InputStream input = connection.getInputStream();
+
+                String result = "";
+                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                StringBuilder sb = new StringBuilder();
+
+                while ((result = reader.readLine()) != null){
+                    sb.append(result);
+                }
+                return sb.toString();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+            */
+        }
+
 
