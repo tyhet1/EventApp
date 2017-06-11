@@ -67,7 +67,6 @@ public class HomeFragment extends Fragment {
 
 
     public static final  String JSON_DOWNLOAD_LOCATION = "http://eventfindingapp:wyr77q77gx9k@api.eventfinda.com.au/v2/events.json?fields=event:(url,name,sessions,location,location_summary,description,datetime_start,datetime_end,location:(id,url,name),session:(datetime_summary,session_tickets),session_ticket:(id,name,price))";
-    public  static final int ADD_EVENT_REQUEST = 1;
 
 
 
@@ -89,6 +88,8 @@ public class HomeFragment extends Fragment {
         }
         //populate the list with valuts from the database
         m_cEventList = new ArrayList<>(m_cDBHelper.getAllEvents().values());
+
+        //
         View view = inflater.inflate(R.layout.fragment_card, container, false);
         MyRecyclerView = (RecyclerView) view.findViewById(R.id.cardView);
         MyRecyclerView.setHasFixedSize(false);
@@ -105,16 +106,14 @@ public class HomeFragment extends Fragment {
         databasenum.setText(String.valueOf(numevents));
 
 
+
+
         return view;
 
         //return homeView;
 
 
     }
-
-
-
-
 
 
 

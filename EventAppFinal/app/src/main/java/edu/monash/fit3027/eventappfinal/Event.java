@@ -147,6 +147,8 @@ public class Event implements Parcelable {
         this.m_sLong = longitude;
     }
 
+    public Event getEvent() {return this; }
+
     // ACCESSORS & MUTATORS //
     public long getId(){ return m_nID; }
     public void setID(long id) { this.m_nID = id; }

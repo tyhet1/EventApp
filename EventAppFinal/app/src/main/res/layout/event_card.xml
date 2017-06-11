@@ -79,6 +79,14 @@
                 android:layout_toStartOf="@+id/date_textView"
                 app:srcCompat="@android:drawable/btn_star_big_off" />
 
+            <ImageButton
+                android:id="@+id/favourite_imageButton_pressed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/date_textView"
+                app:srcCompat="@android:drawable/btn_star_big_on" />
+
 
         </RelativeLayout>
 

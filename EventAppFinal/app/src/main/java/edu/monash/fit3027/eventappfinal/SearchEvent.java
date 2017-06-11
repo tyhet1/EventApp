@@ -18,10 +18,12 @@ public class SearchEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_event);
 
+        //get incoming intent
         Intent intent = getIntent();
         ArrayList<Event> m_cEventList = intent.getParcelableArrayListExtra("EVENTS_RESULT");
 
 
+        // Display the events in the m_cEventList in cardView in RecyclerView in activity
         MyRecyclerView = (RecyclerView) findViewById(R.id.cardView);
         MyRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());

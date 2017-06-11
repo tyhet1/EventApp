@@ -15,6 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //SET DATABASE PROPERTIES
     public static final String DATABASE_NAME = "EventsDB";
     public static final int DATABASE_VERSION = 1;
+    public HashMap <Long, Event> favourites = new HashMap <>();
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -50,6 +51,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(Event.TABLE_NAME, null, values);
         db.close();
     }
+
+    public void AddEventToFavourites(Event event){
+        favourites.put(event.getId(), event);
+    }
+
+    public HashMap<Long, Event> getAllFavourites(){
+        return favourites;
+    }
+
+
 
     public ArrayList<String> getColumnData(String colmun){
         ArrayList<String> array = new ArrayList<String>();
@@ -113,6 +124,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return array;
 
     }
+
+
+
 
     public  HashMap<Long, Event> getSearchedEvents(String location, String budget, String type){
         HashMap<Long, Event> events = new LinkedHashMap<>();

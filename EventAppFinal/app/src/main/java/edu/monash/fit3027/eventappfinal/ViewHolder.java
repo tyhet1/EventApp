@@ -2,6 +2,8 @@ package edu.monash.fit3027.eventappfinal;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +15,8 @@ public class ViewHolder extends RecyclerView.ViewHolder{
     TextView priceTextView;
     ImageView eventImageView;
     //TextView databasenumTextView;
+    ImageButton favButtonoff;
+    ImageButton favButtonOn;
 
     public ViewHolder(View itemView) {
         super(itemView);
@@ -23,6 +27,11 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         priceTextView = (TextView) itemView.findViewById(R.id.price_textView);
         eventImageView = (ImageView) itemView.findViewById(R.id.event_imageView);
         //databasenumTextView = (TextView) itemView.findViewById(R.id.textView_num);
+        favButtonoff = (ImageButton) itemView.findViewById(R.id.favourite_imageButton);
+        favButtonOn = (ImageButton) itemView.findViewById(R.id.favourite_imageButton_pressed);
+        favButtonOn.setVisibility(itemView.INVISIBLE);
+
+
 
     }
 }
