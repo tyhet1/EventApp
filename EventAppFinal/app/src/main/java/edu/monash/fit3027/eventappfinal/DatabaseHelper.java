@@ -59,7 +59,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){
             do{
-                String ID = cursor.getString(0);
                 String NAME = cursor.getString(1);
                 String DESCRIPTION = cursor.getString(2);
                 String STARTDATE = cursor.getString(3);
@@ -71,10 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String LOCATION = cursor.getString(9);
                 String LAT = cursor.getString(10);
                 String LONG = cursor.getString(11);
-                if (colmun.equals("ID")){
-                    array.add(ID);
-                }
-                else if (colmun.equals("NAME")){
+                if (colmun.equals("NAME")){
                     array.add(NAME);
                 }
                 else if (colmun.equals("DESCRIPTION")){
@@ -118,10 +114,68 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public  HashMap<Long, Event> getSearchedEvents(String location, String budget, String type){
+        HashMap<Long, Event> events = new LinkedHashMap<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + Event.TABLE_NAME, null);
+
+
+
+        String [] partsString;
+        partsString = budget.split(" ");
+        String bounds = partsString[0];
+        String[] boundsList;
+        boundsList = bounds.split("-");
+
+        int budgetLowerBound = Integer.parseInt(boundsList[0]);
+        int budgetUpperBound = Integer.parseInt(boundsList[1]);
+
+
+        //Add each person to the hashmap
+        if(cursor.moveToFirst()){
+            do {Event event = new Event(cursor.getLong(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    cursor.getString(6),
+                    cursor.getString(7),
+                    cursor.getString(8),
+                    cursor.getString(9),
+                    cursor.getString(10),
+                    cursor.getString(11));
+
+                String [] eventBudget;
+                eventBudget = cursor.getString(7).split(" ");
+                String budgetBounds = partsString[0];
+                String[] eventBoundsList;
+                eventBoundsList = budgetBounds.split("-");
+
+                int LowerBound = Integer.parseInt(eventBoundsList[0]);
+                int UpperBound = Integer.parseInt(eventBoundsList[1]);
+
+                if (cursor.getString(9).equals(location)){ //9
+                    if (cursor.getString(8).equals(type)) { //8
+                        if(Integer.parseInt(cursor.getString(7)) >= budgetLowerBound && Integer.parseInt(cursor.getString(7)) <= budgetUpperBound ){ //7
+                            events.put(event.getId(), event);
+                        }
+
+                    }
+                }
+
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return events;
+    }
+
     public HashMap<Long, Event> getAllEvents(){
         HashMap<Long, Event> events = new LinkedHashMap<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + Event.TABLE_NAME, null);
+
 
         //Add each person to the hashmap
         if(cursor.moveToFirst()){
@@ -156,6 +210,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void CreateDefaultEvents(){
         AddEvent(new Event(0, "Night Market", "All the food", "06/06/2017", "16/07/2017", "18:00", "22:00", "15-50", "Food ","Melbourne CBD", "-56.34", "54.76"));
         AddEvent(new Event(1, "blah", "blah1desc", "blah2datestart", "blah3dateend", "blah4timestart", "blahtimeend", "blah-price", "blahType", "location", "lat", "lomg"));
+        AddEvent(new Event(2, "Testing", "this is great", "3/11/17", "4/11/17", "05:00", "10:00", "4", "stuff", "Melbourne CBD", "65", "56"));
     }
 
 

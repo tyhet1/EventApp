@@ -105,8 +105,6 @@ public class HomeFragment extends Fragment {
         databasenum.setText(String.valueOf(numevents));
 
 
-
-
         return view;
 
         //return homeView;

@@ -11,7 +11,7 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder>{
         private ArrayList<Event> m_cEventsList;
 
         public Adapter(ArrayList<Event> Data){
-            m_cEventsList = Data;
+            this.m_cEventsList = Data;
         }
 
         @Override
@@ -36,5 +36,10 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder>{
         @Override
         public int getItemCount() {
             return m_cEventsList.size();
+        }
+
+        @Override
+        public void onAttachedToRecyclerView(RecyclerView recyclerView){
+            super.onAttachedToRecyclerView(recyclerView);
         }
     }

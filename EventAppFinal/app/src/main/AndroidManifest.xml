@@ -22,7 +22,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".EventsList" />
-        <activity android:name=".SearchEvent"></activity>
+        <activity
+            android:name=".SearchEvent"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
