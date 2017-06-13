@@ -10,7 +10,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 
-//https://android--code.blogspot.com.au/2015/08/android-imageview-set-image-from-url.html
+//Link used: https://android--code.blogspot.com.au/2015/08/android-imageview-set-image-from-url.html
+//Download image from URL and set to imageView
 class ImageDownloader extends AsyncTask<String, Void, Bitmap>{
     ImageView image;
     public ImageDownloader(ImageView eventImageView) {

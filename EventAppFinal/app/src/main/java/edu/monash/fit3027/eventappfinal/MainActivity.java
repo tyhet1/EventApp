@@ -12,28 +12,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/*
+Links used:
+    http://www.truiton.com/2015/06/android-tabs-example-fragments-viewpager/
+    http://www.androidhive.info/2015/09/android-material-design-working-with-tabs/
+*/
+
 public class MainActivity extends AppCompatActivity {
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private TabLayout m_cTabLayout;
+    private ViewPager m_cViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-
-        tabLayout.setupWithViewPager(viewPager);
+        //set up tabs
+        m_cViewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(m_cViewPager);
+        m_cTabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        m_cTabLayout.setupWithViewPager(m_cViewPager);
     }
 
+    //set up tabs with fragments
     private void setupViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment(), "Home");

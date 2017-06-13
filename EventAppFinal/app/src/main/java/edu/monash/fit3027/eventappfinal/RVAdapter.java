@@ -24,11 +24,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+/*
+Links used: //https://code.tutsplus.com/tutorials/getting-started-with-recyclerview-and-cardview-on-android--cms-23465
+ */
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
     ArrayList<Event> m_cEventsList;
     private DatabaseHelper m_cDBHelper;
-    URL url;
-//https://code.tutsplus.com/tutorials/getting-started-with-recyclerview-and-cardview-on-android--cms-23465
+
 
     public class EventViewHolder extends RecyclerView.ViewHolder {
         public TextView eventNameTextView;

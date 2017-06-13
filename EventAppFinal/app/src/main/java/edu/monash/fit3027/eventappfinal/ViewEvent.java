@@ -53,13 +53,14 @@ public class ViewEvent extends AppCompatActivity implements OnMapReadyCallback {
             m_cName_TextView.setText(m_cEvent.getName());
             m_cDateTime_TextView.setText(m_cDateTime);
             m_cDecription_TextView.setText(m_cEvent.getDescription());
-            //m_cImageView
+
             //get the latitude and logitude from the event object
             str_latitude = m_cEvent.getLatitude();
             str_longitude = m_cEvent.getLongitude();
             event_name = m_cEvent.getName();
             EVENT_LOCATION = new LatLng(Double.parseDouble(str_latitude), Double.parseDouble(str_longitude));
             new ImageDownloader(m_cImageView).execute(m_cEvent.getImage());
+
             //set the map fragment
             MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map_fragment);
             mapFragment.getMapAsync(this);

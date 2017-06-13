@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-
+//Page that shows all external libaries
 public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){

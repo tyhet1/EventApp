@@ -50,20 +50,18 @@
                 android:id="@+id/price_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/time_textView"
+                android:layout_alignParentEnd="true"
                 android:layout_marginEnd="20dp"
                 android:text="Price"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                android:layout_above="@+id/time_textView"
-                android:layout_alignParentEnd="true" />
+                android:textAppearance="@android:style/TextAppearance.Small" />
 
             <TextView
                 android:id="@+id/dateTime_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/location_textView"
-                android:layout_alignBottom="@+id/location_textView"
-                android:layout_marginStart="24dp"
-                android:layout_toEndOf="@+id/location_textView"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/location_textView"
                 android:text="Date" />
 
             <TextView

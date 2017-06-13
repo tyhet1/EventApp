@@ -27,25 +27,17 @@ import android.os.StrictMode;
 /**
  * Created by Thamale on 12/05/2017.
  */
-//https://www.androidtutorialpoint.com/material-design/android-cardview-tutorial
+
 
 public class HomeFragment extends Fragment {
     private String TAG = HomeFragment.class.getSimpleName();
 
     public HomeFragment(){
 
-
-        // leave empty
-
     }
     //?username=myusers&password=mypassword
 
-
-
     public static final  String JSON_DOWNLOAD_LOCATION = "http://eventfindingapp:wyr77q77gx9k@api.eventfinda.com.au/v2/events.json?fields=event:(url,name,sessions,location,location_summary,description,datetime_start,datetime_end,location:(id,url,name),session:(datetime_summary,session_tickets),session_ticket:(id,name,price))";
-
-
-
 
 
     private RecyclerView MyRecyclerView;
@@ -59,13 +51,14 @@ public class HomeFragment extends Fragment {
 
         if(m_cDBHelper.getAllEvents().size() == 0){
             m_cDBHelper.CreateDefaultEvents();
-            //new SetupEventDataSetTask().execute(JSON_DOWNLOAD_LOCATION);
+            //new SetupEventDataSetTask().execute(JSON_DOWNLOAD_LOCATION);  // currently does't work
 
         }
         //populate the list with valuts from the database
         m_cEventList = new ArrayList<>(m_cDBHelper.getAllEvents().values());
 
-        //
+        // set up cardView in recyclerView
+        // Link used: https://www.androidtutorialpoint.com/material-design/android-cardview-tutorial
         View view = inflater.inflate(R.layout.fragment_card, container, false);
         MyRecyclerView = (RecyclerView) view.findViewById(R.id.cardView);
         MyRecyclerView.setHasFixedSize(false);
@@ -79,9 +72,7 @@ public class HomeFragment extends Fragment {
 
 
 
-
-
-
+        // another to see as a text  to see how many items was in the m_cEventList
         int numevents = m_cEventList.size();
         View homeView = inflater.inflate(R.layout.home_fragment, container, false);
         TextView databasenum = (TextView) homeView.findViewById(R.id.textView2);

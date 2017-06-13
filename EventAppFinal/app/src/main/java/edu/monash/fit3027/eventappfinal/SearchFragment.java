@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     private Spinner location_Spinner;
     private Spinner budget_spinner;
     private Spinner type_spinner;
-    private TextView text5;
-    private TextView text6;
+
 
 
     @Override
@@ -42,7 +42,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
         setSpinnerDatabaseData(location_Spinner, "LOCATION");
         setSpinnerDatabaseData(type_spinner, "TYPE");
-
+        // add budget dropdown list options
         array.add("0");
         array.add("1-50");
         array.add("50-100");
@@ -57,6 +57,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    // set the spinner state using the database columns (bug: this causes duplicates)
     public void setSpinnerDatabaseData(Spinner spinner, String column){
         m_cDBHelper = new DatabaseHelper(getActivity());
         ArrayList<String> array;
@@ -66,20 +67,25 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         spinner.setAdapter(adapter);
     }
 
-
+    //When the serach button is pressed
     @Override
     public void onClick(View v) {
         m_cDBHelper = new DatabaseHelper(getActivity());
         ArrayList<Event> m_cEventList;
 
+        //get all the values picked in the drop down lists
         String type = (String) type_spinner.getSelectedItem();
         String location = (String) location_Spinner.getSelectedItem();
         String budget = (String) budget_spinner.getSelectedItem();
 
 
-
-
         m_cEventList = new ArrayList<>(m_cDBHelper.getSearchedEvents(location, budget, type).values());
+
+        if (m_cEventList.size() == 0){
+            Toast.makeText(getContext(),
+                    "No results!",
+                    Toast.LENGTH_SHORT).show();
+        }
 
         //set up intent
         Intent intent = new Intent(getActivity(), SearchEvent.class);

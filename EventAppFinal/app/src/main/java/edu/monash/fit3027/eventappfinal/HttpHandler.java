@@ -12,7 +12,7 @@ import java.net.URL;
 /**
  * Created by Thamale on 6/9/2017.
  */
-
+// attempt to fix  java.io.FileNotFoundException error
 class HttpHandler {
 
     private static final String TAG = HttpHandler.class.getSimpleName();

@@ -9,27 +9,55 @@
         android:id="@+id/licenseName_textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="49dp"
+        android:text="EventFinda API"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="42dp"
         android:layout_marginTop="53dp"
         android:text="Google Maps API "
-        android:textStyle="bold"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="URL:"
+        android:layout_alignBaseline="@+id/actualURL_textView1"
+        android:layout_alignBottom="@+id/actualURL_textView1"
+        android:layout_alignStart="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/licenseName_textView2"
         android:layout_below="@+id/licenseName_textView2"
-        android:layout_alignStart="@+id/licenseName_textView2" />
+        android:text="URL:" />
 
     <TextView
         android:id="@+id/actualURL_textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="https://developers.google.com/maps/"
+        android:layout_below="@+id/textView4"
+        android:layout_toEndOf="@+id/textView21" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/licenseName_textView2"
         android:layout_toEndOf="@+id/textView21"
-        android:text="https://developers.google.com/maps/" />
+        android:text="https://www.eventfinda.com.au/api/v2/overview" />
 </RelativeLayout>
