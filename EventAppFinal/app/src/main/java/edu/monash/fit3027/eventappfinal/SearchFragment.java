@@ -85,7 +85,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         Intent intent = new Intent(getActivity(), SearchEvent.class);
         intent.putExtra("EVENTS_RESULT", m_cEventList);
         startActivity(intent);
-        getActivity().finish();
 
 
 

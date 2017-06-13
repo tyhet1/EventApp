@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new HomeFragment(), "Home");
         adapter.addFragment(new FavouritesFragment(), "Favourites");
         adapter.addFragment(new SearchFragment(), "Search");
+        adapter.addFragment(new AboutFragment(), "About");
         viewPager.setAdapter(adapter);
     }
 

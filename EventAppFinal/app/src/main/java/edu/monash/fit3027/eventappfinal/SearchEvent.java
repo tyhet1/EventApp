@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import java.util.ArrayList;
 
@@ -29,7 +28,8 @@ public class SearchEvent extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
         MyRecyclerView.setLayoutManager(layoutManager);
         if(m_cEventList.size() > 0 & MyRecyclerView != null){
-            MyRecyclerView.setAdapter(new Adapter(m_cEventList));
+            RVAdapter adapter = new RVAdapter(m_cEventList);
+            MyRecyclerView.setAdapter(adapter);
         }
 
 

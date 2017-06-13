@@ -3,49 +3,25 @@ package edu.monash.fit3027.eventappfinal;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.IntentCompat;
-import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewDebug;
 import android.view.ViewGroup;
 
-import android.webkit.HttpAuthHandler;
-import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.apache.http.HttpHost;
-import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.Authenticator;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.StringTokenizer;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
+import android.os.StrictMode;
 
 
 /**
@@ -96,9 +72,15 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         if(m_cEventList.size() > 0 & MyRecyclerView != null){
-            MyRecyclerView.setAdapter(new Adapter(m_cEventList));
+            RVAdapter adapter = new RVAdapter(m_cEventList);
+            MyRecyclerView.setAdapter(adapter);
         }
         MyRecyclerView.setLayoutManager(layoutManager);
+
+
+
+
+
 
         int numevents = m_cEventList.size();
         View homeView = inflater.inflate(R.layout.home_fragment, container, false);
@@ -125,6 +107,7 @@ public class HomeFragment extends Fragment {
             // Make a request to url and getting response
             String url = "http://eventfindingapp:wyr77q77gx9k@api.eventfinda.com.au/v2/events.json?fields=event:(url,name,sessions,location,location_summary,description,datetime_start,datetime_end,location:(id,url,name),session:(datetime_summary,session_tickets),session_ticket:(id,name,price))";
             String jsonStr = sh.makeServiceCall(url);
+            String imageURL = null;
 
             Log.e(TAG, "Response from url: " + jsonStr);
             if (jsonStr != null) {
@@ -162,7 +145,7 @@ public class HomeFragment extends Fragment {
                             JSONObject transform = (JSONObject) transforms.get(j);
                             int transformationID = transform.getInt("transformation_id");
                             if (transformationID == 8) {
-                                String imageURL = transform.getString("url");
+                                imageURL = transform.getString("url");
                                 break;
                             }
                         }
@@ -198,7 +181,8 @@ public class HomeFragment extends Fragment {
                                 categoryName,
                                 tempJSON.getString("location_summary"),
                                 lat,
-                                lng);
+                                lng,
+                                imageURL);
                         m_cDBHelper.AddEvent(event);
                         m_cEventList.add(event);
                     }

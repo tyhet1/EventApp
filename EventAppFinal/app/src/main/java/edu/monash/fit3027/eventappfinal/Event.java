@@ -31,6 +31,7 @@ public class Event implements Parcelable {
     public static final String COLUMN_LOCATION = "location";
     public static final String COLUMN_LAT = "lat";
     public static final String COLUMN_LONG = "long";
+    public static final String COLUMN_IMAGE = "image";
 
     //TABLE CREATE STATEMENT
     public static final String CREATE_STATEMENT = "CREATE TABLE "
@@ -46,7 +47,8 @@ public class Event implements Parcelable {
             COLUMN_TYPE + " TEXT NOT NULL, " +
             COLUMN_LOCATION + " TEXT NOT NULL, " +
             COLUMN_LAT + " TEXT NOT NULL, " +
-            COLUMN_LONG + " TEXT NOT NULL" +
+            COLUMN_LONG + " TEXT NOT NULL, " +
+            COLUMN_IMAGE + " TEXT NOT NULL" +
             ")";
 
     // VARIABLES //
@@ -62,6 +64,7 @@ public class Event implements Parcelable {
     private String m_sLocation;
     private String m_sLat;
     private String m_sLong;
+    private String m_cImage;
 
 
     // DUMMY EVENT //
@@ -77,6 +80,7 @@ public class Event implements Parcelable {
         m_sLocation = "Melbourne CBD";
         m_sLat = "-65.9898 ";
         m_sLong = "-898.88 ";
+        m_cImage = "http://www.qvm.com.au/wp-content/uploads/2016/06/QVM-WNM-2016-114-768x512.jpg";
 
     }
 
@@ -93,6 +97,7 @@ public class Event implements Parcelable {
         m_sLocation = in.readString();
         m_sLat = in.readString();
         m_sLong = in.readString();
+        m_cImage = in.readString();
 
     }
 
@@ -127,12 +132,13 @@ public class Event implements Parcelable {
         dest.writeString(m_sLocation);
         dest.writeString(m_sLat);
         dest.writeString(m_sLong);
+        dest.writeString(m_cImage);
     }
 
 
 
    // CONSTRUCTORS //
-    public Event(long id, String name, String description, String startDate, String endDate, String startTime, String endTime, String price, String type, String location, String latitude, String longitude ){
+    public Event(long id, String name, String description, String startDate, String endDate, String startTime, String endTime, String price, String type, String location, String latitude, String longitude, String image ){
         this.m_nID = id;
         this.m_sName = name;
         this.m_sDescription = description;
@@ -145,9 +151,9 @@ public class Event implements Parcelable {
         this.m_sLocation = location;
         this.m_sLat = latitude;
         this.m_sLong = longitude;
+        this.m_cImage = image;
     }
 
-    public Event getEvent() {return this; }
 
     // ACCESSORS & MUTATORS //
     public long getId(){ return m_nID; }
@@ -198,6 +204,9 @@ public class Event implements Parcelable {
     public void  setLocation(String location){
         this.m_sLocation = location;
     }
+
+    public String getImage() { return m_cImage; }
+    public void setImage(String image) {this.m_cImage = image;}
 
     public String getStringFromDate(Date date){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);

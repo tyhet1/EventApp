@@ -18,12 +18,13 @@
 
             <ImageView
                 android:id="@+id/event_imageView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="151dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_weight="0.7"
+                android:scaleType="centerCrop"
                 app:srcCompat="@android:drawable/ic_menu_gallery" />
 
             <TextView
@@ -39,22 +40,24 @@
                 android:id="@+id/time_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/date_textView"
-                android:layout_alignBottom="@+id/date_textView"
+                android:layout_alignBaseline="@+id/dateTime_textView"
+                android:layout_alignBottom="@+id/dateTime_textView"
                 android:layout_marginStart="18dp"
-                android:layout_toEndOf="@+id/date_textView"
+                android:layout_toEndOf="@+id/dateTime_textView"
                 android:text="Time" />
 
             <TextView
                 android:id="@+id/price_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/event_imageView"
-                android:layout_alignParentEnd="true"
-                android:text="Price" />
+                android:layout_marginEnd="20dp"
+                android:text="Price"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:layout_above="@+id/time_textView"
+                android:layout_alignParentEnd="true" />
 
             <TextView
-                android:id="@+id/date_textView"
+                android:id="@+id/dateTime_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/location_textView"
@@ -76,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_toStartOf="@+id/date_textView"
+                android:layout_toStartOf="@+id/dateTime_textView"
                 app:srcCompat="@android:drawable/btn_star_big_off" />
 
             <ImageButton
@@ -84,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_toStartOf="@+id/date_textView"
+                android:layout_toStartOf="@+id/dateTime_textView"
                 app:srcCompat="@android:drawable/btn_star_big_on" />
 
 
